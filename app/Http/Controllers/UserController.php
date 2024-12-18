@@ -19,4 +19,6 @@ class UserController extends Controller
         return response(User::findOrFail($id), 200)
         ->header('Content-Type', 'application/json');
     }
+
+    
 }

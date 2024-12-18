@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserGame extends Model
 {
+    
+    
     //
     protected $fillable = [
         'date',  
