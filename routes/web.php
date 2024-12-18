@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
-Route::view('/', 'welcome');
+use App\Models\Game;
+use App\Models\User;
+
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -13,6 +16,11 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+    Route::view('games', 'game', ["games"=>Game::all()->toArray()])
+    ->name('index');
+
+    Route::view('players', 'players', ["players"=>User::all()->toArray()])
+    ->name('index');
 
 
 require __DIR__.'/auth.php';

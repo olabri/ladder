@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GamePlay extends Model
 {
-    //
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'date_played',
@@ -14,4 +14,8 @@ class GamePlay extends Model
         'location',
         
     ];
+
+    public function index () {
+        return GamePlay::all()->toArray();
+    }
 }
