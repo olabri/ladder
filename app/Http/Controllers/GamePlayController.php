@@ -14,4 +14,10 @@ class GamePlayController extends Controller
         return response(content: GamePlay::all(), 200)
         ->header('Content-Type', 'application/json');
     }
+
+    public function show () {
+        // Response function allows us to send response
+        return response(content: GamePlay::all(), 200)
+        ->header('Content-Type', 'application/json');
+    }
 }

@@ -13,7 +13,7 @@ class GameController extends Controller
     }
 
     public function show($id) {
-        return Game::find($id);
+        return Game::show($id);
     }
 
 

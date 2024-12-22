@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\GameController;
 
 class Game extends Model
 {
@@ -25,6 +26,18 @@ class Game extends Model
 
     public function index () {
         return Game::all()->toArray();
+    }
+
+
+    public static function show ($id) {
+        $game= Game::get()->where('id', $id)[0]->toArray();
+
+        $game['gameplays']=GamePlay::get()->where('game_id', $id);
+
+       
+
+        return view('game', ['game'=>$game]);
+
     }
 
 }
