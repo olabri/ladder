@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Complexity;
+
 
 class GamePlay extends Model
 {
@@ -24,8 +26,34 @@ class GamePlay extends Model
     ];
         
 
-    public function index () {
-        return GamePlay::all()->toArray();
+    public static function index () {
+        $ladder=$user=[];
+        foreach (GamePlay::all()->toArray() as $play) {
+            $game = Game::find($play['game_id']);
+            $play['game'] = $game->name;
+            $play['complexity'] = $game->complexity;
+            $play['complexity_pretty'] = Complexity::get($game->complexity);
+            foreach ($play['results'] as $key => $player) {
+                if (!isset($user[$player])) {
+                    $user[$player] = User::find($player);
+                    $ladder[$player] = 0;
+                }
+                
+                $play['xresults'][$key]['user_id'] = $user[$player]->id;
+                $play['xresults'][$key]['user_name'] = $user[$player]->name;
+                $play['xresults'][$key]['points'] = Complexity::points($key, $game->complexity) ?? 0;
+
+                $ladder[$player]+=$play['xresults'][$key]['points'];
+            }
+            $play['results']=$play['xresults'];
+            unset($play['xresults']);
+
+            $plays[] = $play;
+        }
+
+        $plays['ladder'] = $ladder;
+
+        return $plays;
     }
 
     public function update (array $attributes=[], array $options=[] ) {
@@ -49,8 +77,8 @@ class GamePlay extends Model
         if (isset($attributes['results'])) {
             $gamePlay->results = $attributes['results'];
         }
-        $gamePlay->save();
-        return $gamePlay;
+        
+        return $gamePlay->save();
         
     }
 }

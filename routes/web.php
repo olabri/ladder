@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Models\GamePlay;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -16,15 +17,18 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::view('games', 'game', ["games"=>Game::all()->toArray()])
+Route::view('games', 'games', ["games"=>Game::all()->toArray()])
     ->name('index');
 
 Route::get('game/{game:id}', function (Game $game) {
-     return Game::show($game->id);
+     return Game::show($game->id)->with('users', User::index());
     })->name('game');
 
 Route::view('players', 'players', ["players"=>User::all()->toArray()])
     ->name('index');
+
+Route::view('plays', 'plays', ["plays"=>GamePlay::index()])
+  ->name('index');
 
 
 require __DIR__.'/auth.php';
