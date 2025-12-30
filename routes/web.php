@@ -1,20 +1,24 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
-use App\Models\GamePlay;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
 use App\Models\Game;
+use App\Models\GamePlay;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 
 Route::view('/', 'welcome')
     ->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::post('dashboard/users', [DashboardController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard.users.store');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
