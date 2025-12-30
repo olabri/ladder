@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'olav+admin@jaggu.org',
             'is_admin' => true,
+            'is_game_admin' => true,
         ]);
 
         User::factory()->create([
