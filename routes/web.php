@@ -9,6 +9,9 @@ use App\Models\Game;
 use App\Models\User;
 
 
+Route::view('/', 'welcome')
+    ->name('home');
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
