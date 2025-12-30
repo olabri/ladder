@@ -17,6 +17,9 @@ class Complexity extends Model
     }
 
     public static function points ($place, $level) {
+        if (count(self::{self::level[$level]}) < $place) {
+            return 0;
+        }
         return self::{self::level[$level]}[$place];
     }
 
