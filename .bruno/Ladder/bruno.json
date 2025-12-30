@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Ladder",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
