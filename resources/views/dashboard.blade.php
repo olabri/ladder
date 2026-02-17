@@ -11,7 +11,7 @@
             </div>
             <a
                 href="{{ route('home') }}"
-                class="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700 hover:border-slate-500 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-400 dark:hover:text-white"
+                class="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-700 transition hover:border-slate-500 hover:text-slate-900 focus:outline-none focus-visible:ring focus-visible:ring-slate-400/40 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-400 dark:hover:text-white"
             >
                 Til forsiden
             </a>
@@ -27,7 +27,7 @@
             @endif
 
             <div class="grid gap-6 lg:grid-cols-3">
-                <div class="rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900/60">
+                <div id="panel-overview" class="rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900/60">
                     <p class="text-sm uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400">Oversikt</p>
                     <div class="mt-4">
                         <p class="text-4xl font-semibold text-slate-900 dark:text-white">{{ $totalUsers }}</p>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900/60">
+                <div id="panel-game-admins" class="rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900/60">
                     <p class="text-sm uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400">Game admins</p>
                     <div class="mt-4">
                         <p class="text-4xl font-semibold text-slate-900 dark:text-white">{{ $gameAdminCount }}</p>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
+                <div id="panel-games" class="lg:col-span-2 rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Spill</h3>
                         <span class="text-xs uppercase tracking-[0.4em] text-gray-400">Gi oversikt</span>
@@ -62,7 +62,7 @@
                                 <button
                                     id="show-game-form"
                                     type="button"
-                                    class="inline-flex items-center justify-center rounded-full bg-sky-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:bg-sky-400 focus:outline-none focus-visible:ring focus-visible:ring-sky-500/40"
+                                    class="inline-flex items-center justify-center rounded-full bg-sky-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-sky-400 focus:outline-none focus-visible:ring focus-visible:ring-sky-500/40"
                                 >
                                     Registrer nytt spill
                                 </button>
@@ -115,14 +115,14 @@
                                     <div class="flex items-center justify-between">
                                         <button
                                             type="submit"
-                                            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:bg-slate-800"
+                                            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring focus-visible:ring-slate-500/40"
                                         >
                                             Lagre spill
                                         </button>
                                         <button
                                             type="button"
                                             id="game-form-cancel"
-                                            class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
+                                            class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
                                         >
                                             Avbryt
                                         </button>
@@ -186,7 +186,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
+                <div id="panel-gameplay" class="rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
                     <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Gameplay</h3>
@@ -195,7 +195,7 @@
                         <button
                             id="show-gameplay-form"
                             type="button"
-                            class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:bg-indigo-400 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500/40"
+                            class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-indigo-400 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500/40"
                         >
                             Registrer gameplay
                         </button>
@@ -290,14 +290,14 @@
                             <div class="flex items-center justify-between">
                                 <button
                                     type="submit"
-                                    class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:bg-slate-800"
+                                    class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring focus-visible:ring-slate-500/40"
                                 >
                                     Lagre gameplay
                                 </button>
                                 <button
                                     type="button"
                                     id="gameplay-form-cancel"
-                                    class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
+                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
                                 >
                                     Avbryt
                                 </button>
@@ -362,10 +362,9 @@
                     </div>
                 </div>
 
-                <div class="rounded-2xl border border-slate-200/70 bg-white/95 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
+                <div id="panel-users" class="lg:col-span-2 rounded-2xl border border-slate-200/70 bg-white/95 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Alle brukere</h3>
-                        <span class="text-xs uppercase tracking-[0.4em] text-gray-400">Sortert nyest først</span>
                     </div>
                     <div class="mt-4 overflow-hidden rounded-xl border border-slate-200/60 dark:border-slate-800">
                         <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
@@ -431,7 +430,7 @@
                             <button
                                 id="show-user-form"
                                 type="button"
-                                class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:bg-emerald-400 focus:outline-none focus-visible:ring focus-visible:ring-emerald-500/40"
+                                class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-emerald-400 focus:outline-none focus-visible:ring focus-visible:ring-emerald-500/40"
                             >
                                 Registrer ny bruker
                             </button>
@@ -513,14 +512,14 @@
                                     <div class="flex gap-3">
                                         <button
                                             type="submit"
-                                            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-2 text-xs font-semibold uppercase tracking-[0.4em] text-white transition hover:bg-slate-800"
+                                            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring focus-visible:ring-slate-500/40"
                                         >
                                             Lagre
                                         </button>
                                         <button
                                             type="button"
                                             id="user-form-cancel"
-                                            class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
+                                            class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
                                         >
                                             Avbryt
                                         </button>

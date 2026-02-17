@@ -3,17 +3,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Ladderen • Follese Brettspillklubb</title>
+        <title>Stigen • Follese Brettspillklubb</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen bg-gradient-to-b from-slate-100 via-white to-slate-50 text-slate-900">
         <div class="mx-auto flex min-h-screen max-w-6xl flex-col gap-10 px-4 py-20">
-            <header class="mx-auto flex w-full max-w-5xl flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-8 text-left shadow-lg backdrop-blur-sm md:flex-row md:items-center md:justify-between">
+            <header id="panel-hero" class="mx-auto flex w-full max-w-5xl flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-8 text-left shadow-lg backdrop-blur-sm md:flex-row md:items-center md:justify-between">
                 <div class="space-y-2">
                     <p class="text-xs uppercase tracking-[0.7em] text-slate-400">Follese Brettspillklubb</p>
-                    <h1 class="text-3xl font-semibold text-slate-900 md:text-4xl">Ladderen</h1>
+                    <h1 class="text-3xl font-semibold text-slate-900 md:text-4xl">Stigen</h1>
                     <p class="text-sm text-slate-500">
-                        Rangeringen bygger på hver gameplay, med poeng etter kompleksiteten. Nå ser du hvem som leder og hvilke spill som nylig ble spilt.
+                        Rangeringen bygger på hver Spilløkt, med poeng etter kompleksitet. Nå ser du hvem som leder og hvilke spill som nylig ble spilt.
                     </p>
                 </div>
                 <div class="flex gap-3 text-xs uppercase tracking-[0.4em]">
@@ -27,10 +27,10 @@
             </header>
 
             <section class="space-y-4">
-                <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200">
+                <div id="panel-ladder" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs uppercase tracking-[0.5em] text-slate-500">Ladder</p>
+                            <p class="text-xs uppercase tracking-[0.5em] text-slate-500">Stigen</p>
                             <h2 class="text-2xl font-semibold text-slate-900">De høyest rangerte</h2>
                         </div>
                         <span class="text-xs font-semibold uppercase tracking-[0.3em] text-amber-500">Poeng</span>
@@ -41,7 +41,6 @@
                                 <tr class="bg-slate-50">
                                     <th class="px-4 py-3 text-left text-xs uppercase tracking-[0.3em] text-slate-500">Rank</th>
                                     <th class="px-4 py-3 text-left text-xs uppercase tracking-[0.3em] text-slate-500">Navn</th>
-                                    <th class="px-4 py-3 text-left text-xs uppercase tracking-[0.3em] text-slate-500">E-post</th>
                                     <th class="px-4 py-3 text-right text-xs uppercase tracking-[0.3em] text-amber-500">Poeng</th>
                                 </tr>
                             </thead>
@@ -50,7 +49,6 @@
                                     <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-slate-50' }}">
                                         <td class="px-4 py-3 font-semibold text-slate-500">#{{ $index + 1 }}</td>
                                         <td class="px-4 py-3 font-semibold text-slate-900">{{ $entry['user']->name }}</td>
-                                        <td class="px-4 py-3 text-slate-600">{{ $entry['user']->email }}</td>
                                         <td class="px-4 py-3 text-right font-semibold text-amber-500">{{ number_format($entry['points']) }}</td>
                                     </tr>
                                 @empty
@@ -67,12 +65,12 @@
             <section id="games-played" class="space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                        <p class="text-xs uppercase tracking-[0.5em] text-slate-400">Gameplays</p>
+                        <p class="text-xs uppercase tracking-[0.5em] text-slate-400">Spilløkter</p>
                         <h2 class="text-2xl font-semibold text-white">Nylig spilte kvelder</h2>
                     </div>
                     <span class="text-xs uppercase tracking-[0.3em] text-slate-400">Dato • Spill • Lokasjon</span>
                 </div>
-                <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200">
+                <div id="panel-gameplays" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200">
                     <div class="divide-y divide-slate-100">
                         @foreach ($gameplays as $play)
                             @php
@@ -97,7 +95,7 @@
                             </article>
                         @endforeach
                         @unless ($gameplays->count())
-                            <p class="py-4 text-sm text-slate-500">Ingen gameplay-data ennå.</p>
+                            <p class="py-4 text-sm text-slate-500">Ingen Spilløkter-data ennå.</p>
                         @endunless
                     </div>
                 </div>

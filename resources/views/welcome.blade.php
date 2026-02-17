@@ -14,7 +14,7 @@
                 <div>
                     <p class="text-xs uppercase tracking-[0.5em] text-slate-300">Velkommen</p>
                     <h1 class="mt-4 text-4xl font-semibold leading-tight text-white/90 md:text-5xl">
-                        Velkommen til Follese Brettspillklubb
+                        Velkommen til Follese Brettspillklubb!
                     </h1>
                     <p class="mt-4 text-lg leading-relaxed text-slate-200/80">
                         Sjekk ut brettspill-stigen vår, finn dine spillvenner og bli inspirert til neste slag. Vi samler erfarne og nye spillere til hyggelige kvelder i et nordisk klima av raushet og strategi.
@@ -25,7 +25,7 @@
                     <div class="flex flex-col gap-3">
                         <div class="flex items-center gap-3">
                             <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
-                            <span>Følg brettspill-ladderen og finn neste kamp.</span>
+                            <span>Følg brettspill-Stigen og finn neste kamp.</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="flex h-2 w-2 rounded-full bg-sky-400"></span>
@@ -42,9 +42,9 @@
                         href="{{ url('/games') }}"
                         class="inline-flex items-center justify-center rounded-full bg-white px-10 py-3 text-base font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 transition hover:bg-slate-100"
                     >
-                        ladder
+                        Stigen
                     </a>
-                    <div class="text-right text-xs uppercase tracking-[0.4em] text-slate-500">Follese</div>
+                    <div class="text-right text-xs uppercase tracking-[0.4em] text-slate-500">Follese Btettspillklubb</div>
                 </div>
             </div>
         </div>
