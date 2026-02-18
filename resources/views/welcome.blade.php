@@ -17,7 +17,7 @@
                         Velkommen til Follese Brettspillklubb!
                     </h1>
                     <p class="mt-4 text-lg leading-relaxed text-slate-200/80">
-                        Sjekk ut brettspill-stigen vår, finn dine spillvenner og bli inspirert til neste slag. Vi samler erfarne og nye spillere til hyggelige kvelder i et nordisk klima av raushet og strategi.
+                        Sjekk ut brettspill-stigen vår, finn dine spillvenner og bli inspirert til neste slag. Vi samler erfarne og nye spillere til hyggelige kvelder på loftet på fFollese Kultursenter.
                     </p>
                 </div>
                 <div class="flex flex-col gap-6 rounded-2xl border border-slate-800/70 bg-slate-950/30 p-6 text-sm text-slate-200 shadow-inner shadow-black/30">
