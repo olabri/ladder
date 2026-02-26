@@ -27,14 +27,10 @@
             </header>
 
             <section class="space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                        <h2 class="text-2xl font-semibold text-white">De høyest rangerte</h2>
+                </div>
                 <div id="panel-ladder" class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-lg shadow-black/30">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs uppercase tracking-[0.5em] text-slate-400">Stigen</p>
-                            <h2 class="text-2xl font-semibold text-white">De høyest rangerte</h2>
-                        </div>
-                        <span class="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">Poeng</span>
-                    </div>
                     <div class="mt-6 overflow-x-auto">
                         <table class="min-w-full table-fixed text-sm">
                             <thead>
@@ -64,11 +60,7 @@
 
             <section id="games-played" class="space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-3">
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.5em] text-slate-400">Spilløkter</p>
-                        <h2 class="text-2xl font-semibold text-white">Nylig spilte kvelder</h2>
-                    </div>
-                    <span class="text-xs uppercase tracking-[0.3em] text-slate-400">Dato • Spill • Lokasjon</span>
+                        <h2 class="text-2xl font-semibold text-white">Spillkvelder</h2>
                 </div>
                 <div id="panel-gameplays" class="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-lg shadow-black/30">
                     <div class="divide-y divide-slate-800">
@@ -83,13 +75,13 @@
                             <article class="flex flex-col gap-3 py-4 last:pb-0">
                                 <div class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
                                     <div>
-                                        <p class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ $play->date_played->format('Y-m-d') }}</p>
-                                        <p class="text-lg font-semibold text-white">{{ $play->game?->name ?? 'Ukjent spill' }}</p>
+                                        <p class="text-white">{{ $play->date_played->format('d/m-Y') }} - 
+                                        <span class="text-lg font-semibold">{{ $play->game?->name ?? 'Ukjent spill' }}</span></p>
                                     </div>
                                     <div class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ $play->location }}</div>
                                 </div>
                                 <div class="text-sm text-slate-300">
-                                    <p class="text-xs uppercase tracking-[0.3em] text-slate-400">Deltakere (1-5)</p>
+                                    <p class="text-xs uppercase tracking-[0.3em] text-slate-400">Resultat</p>
                                     <p>{{ $playerNames->implode(' • ') ?: 'Ingen spillere registrert' }}</p>
                                 </div>
                             </article>
