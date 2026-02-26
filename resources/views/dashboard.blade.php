@@ -534,7 +534,15 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        let dashboardInitController;
+
+        const initDashboardForms = () => {
+            if (dashboardInitController) {
+                dashboardInitController.abort();
+            }
+            dashboardInitController = new AbortController();
+            const { signal } = dashboardInitController;
+
             const panel = document.getElementById('user-form-panel');
             if (panel) {
                 const form = document.getElementById('user-form');
@@ -581,7 +589,7 @@
                 showBtn?.addEventListener('click', function () {
                     openForm('create');
                     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
+                }, { signal });
 
                 document.querySelectorAll('[data-action="edit-user"]').forEach((link) => {
                     link.addEventListener('click', function (event) {
@@ -594,13 +602,13 @@
                             isGameAdmin: this.dataset.gameAdmin === '1',
                         });
                         panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
+                    }, { signal });
                 });
 
                 cancelBtn?.addEventListener('click', function () {
                     openForm('create');
                     panel.classList.add('hidden');
-                });
+                }, { signal });
 
                 if (panel.dataset.showOnErrors === 'true') {
                     openForm('create');
@@ -638,7 +646,7 @@
                 showGameBtn?.addEventListener('click', function () {
                     openGameForm('create');
                     gamePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
+                }, { signal });
 
                 document.querySelectorAll('[data-action="edit-game"]').forEach((link) => {
                     link.addEventListener('click', function (event) {
@@ -649,13 +657,13 @@
                             complexity: this.dataset.complexity,
                         });
                         gamePanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
+                    }, { signal });
                 });
 
                 cancelGameBtn?.addEventListener('click', function () {
                     openGameForm('create');
                     gamePanel.classList.add('hidden');
-                });
+                }, { signal });
 
                 if (gamePanel.dataset.showOnErrors === 'true') {
                     openGameForm('create');
@@ -708,7 +716,7 @@
                 showGameplayBtn?.addEventListener('click', function () {
                     openGameplayForm('create');
                     gameplayPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
+                }, { signal });
 
                 document.querySelectorAll('[data-action="edit-gameplay"]').forEach((link) => {
                     link.addEventListener('click', function (event) {
@@ -721,18 +729,21 @@
                             location: this.dataset.location,
                         });
                         gameplayPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
+                    }, { signal });
                 });
 
                 cancelGameplayBtn?.addEventListener('click', function () {
                     openGameplayForm('create');
                     gameplayPanel.classList.add('hidden');
-                });
+                }, { signal });
 
                 if (gameplayPanel.dataset.showOnErrors === 'true') {
                     openGameplayForm('create');
                 }
             }
-        });
+        };
+
+        document.addEventListener('DOMContentLoaded', initDashboardForms);
+        document.addEventListener('livewire:navigated', initDashboardForms);
     </script>
 </x-app-layout>
