@@ -47,157 +47,18 @@
                     </div>
                 </div>
 
-                <div id="panel-games" class="lg:col-span-2 rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Spill</h3>
-                        <span class="text-xs uppercase tracking-[0.4em] text-gray-400">Gi oversikt</span>
-                    </div>
-                    <div class="mt-4 space-y-4">
-                        <div class="rounded-2xl border border-slate-200/60 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-900/60">
-                            <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                                <div>
-                                    <p class="text-sm uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Nytt spill</p>
-                                    <p class="text-xs text-slate-400">Navn + kompleksitet</p>
-                                </div>
-                                <button
-                                    id="show-game-form"
-                                    type="button"
-                                    class="inline-flex items-center justify-center rounded-full bg-sky-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-sky-400 focus:outline-none focus-visible:ring focus-visible:ring-sky-500/40"
-                                >
-                                    Registrer nytt spill
-                                </button>
-                            </div>
-                            <div
-                                id="game-form-panel"
-                                class="{{ $errors->hasAny(['game_name', 'game_complexity']) ? '' : 'hidden' }} mt-6 rounded-2xl border border-dashed border-slate-200/60 bg-white/60 p-6 shadow-inner shadow-black/5 dark:border-slate-700/60 dark:bg-slate-900/40"
-                                data-default-name="{{ old('game_name', '') }}"
-                                data-default-complexity="{{ old('game_complexity', '') }}"
-                                data-show-on-errors="{{ $errors->hasAny(['game_name', 'game_complexity']) ? 'true' : 'false' }}"
-                            >
-                                <form id="game-form" method="POST" action="{{ route('dashboard.games.store') }}" class="space-y-6">
-                                    @csrf
-                                    <input type="hidden" name="_method" id="game-form-method" value="POST">
-                                    <div class="grid gap-4 md:grid-cols-2">
-                                        <div>
-                                            <label class="text-xs uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400" for="game-form-name">Navn</label>
-                                            <input
-                                                id="game-form-name"
-                                                type="text"
-                                                name="game_name"
-                                                value="{{ old('game_name') }}"
-                                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring focus:ring-slate-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                                                required
-                                            />
-                                            @error('game_name')
-                                                <p class="mt-1 text-xs text-rose-500">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <div>
-                                            <label class="text-xs uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400" for="game-form-complexity">Kompleksitet</label>
-                                            <select
-                                                id="game-form-complexity"
-                                                name="game_complexity"
-                                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring focus:ring-slate-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                                                required
-                                            >
-                                                @foreach ($complexityLevels as $levelValue => $levelLabel)
-                                                    <option value="{{ $levelValue }}" {{ old('game_complexity') == $levelValue ? 'selected' : '' }}>
-                                                        {{ ucfirst($levelLabel) }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('game_complexity')
-                                                <p class="mt-1 text-xs text-rose-500">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-center justify-between">
-                                        <button
-                                            type="submit"
-                                            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring focus-visible:ring-slate-500/40"
-                                        >
-                                            Lagre spill
-                                        </button>
-                                        <button
-                                            type="button"
-                                            id="game-form-cancel"
-                                            class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
-                                        >
-                                            Avbryt
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="rounded-2xl border border-slate-200/60 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-900/60">
-                            <div class="overflow-hidden rounded-xl border border-slate-200/60 dark:border-slate-800">
-                                <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
-                                    <thead class="bg-slate-50 dark:bg-slate-900">
-                                        <tr>
-                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Navn</th>
-                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Kompleksitet</th>
-                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Lagt til</th>
-                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Handling</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                        @forelse ($games as $game)
-                                            <tr class="bg-white dark:bg-slate-900">
-                                                <td class="px-4 py-3 text-slate-800 dark:text-slate-100">{{ $game->name }}</td>
-                                                <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ $game->complexity }}</td>
-                                                <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{{ $game->created_at->format('Y-m-d') }}</td>
-                                                <td class="px-4 py-3 text-slate-600 dark:text-slate-300">
-                                                    <div class="flex items-center gap-3">
-                                                        <a
-                                                            href="#game-form-panel"
-                                                            data-action="edit-game"
-                                                            data-id="{{ $game->id }}"
-                                                            data-name="{{ $game->name }}"
-                                                            data-complexity="{{ $game->complexity }}"
-                                                            class="text-xs text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
-                                                        >
-                                                            Endre
-                                                        </a>
-                                                        <form method="POST" action="{{ route('dashboard.games.destroy', $game) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button
-                                                                type="submit"
-                                                                class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-600 hover:text-rose-400 dark:text-rose-400 dark:hover:text-rose-200"
-                                                            >
-                                                                Slett
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="4" class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
-                                                    Ingen spill registrert enda.
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="panel-gameplay" class="rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
+                <div id="panel-gameplay" class="lg:col-span-3 rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
                     <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Gameplay</h3>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Spilløkt</h3>
                             <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Registrer og rediger kampdatoer med rangering.</p>
                         </div>
                         <button
                             id="show-gameplay-form"
                             type="button"
-                            class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-indigo-400 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500/40"
+                            class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-emerald-400 focus:outline-none focus-visible:ring focus-visible:ring-emerald-500/40"
                         >
-                            Registrer gameplay
+                            Registrer Spilløkt
                         </button>
                     </div>
 
@@ -290,7 +151,7 @@
                             <div class="flex items-center justify-between">
                                 <button
                                     type="submit"
-                                    class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring focus-visible:ring-slate-500/40"
+                                    class="inline-flex items-center justify-center rounded-full bg-rose-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-rose-500 focus:outline-none focus-visible:ring focus-visible:ring-rose-500/40"
                                 >
                                     Lagre gameplay
                                 </button>
@@ -311,17 +172,26 @@
                                 <tr>
                                     <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Dato</th>
                                     <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Spill</th>
-                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Spiller</th>
+                                    <th colspan="4" class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Spillere</th>
                                     <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Lokasjon</th>
                                     <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Handling</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                                 @forelse ($gameplays as $play)
+                                    @php
+                                        $playerNames = collect($play->results ?? [])
+                                            ->pluck('user_id')
+                                            ->map(fn ($userId) => $users->firstWhere('id', $userId)?->name ?? 'Ukjent')
+                                            ->filter()
+                                            ->values();
+                                    @endphp
                                     <tr class="bg-white dark:bg-slate-900">
                                         <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{{ $play->date_played->format('Y-m-d') }}</td>
                                         <td class="px-4 py-3 text-slate-800 dark:text-slate-100">{{ $play->game?->name ?? 'Ukjent' }}</td>
-                                        <td class="px-4 py-3 text-slate-700 dark:text-slate-300">{{ $play->primaryPlayer()?->name ?? 'Ukjent' }}</td>
+                                        <td colspan="4" class="px-4 py-3 text-slate-700 dark:text-slate-300">
+                                            {{ $playerNames->implode(' • ') ?: 'Ingen spillere registrert' }}
+                                        </td>
                                         <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ $play->location }}</td>
                                         <td class="px-4 py-3 text-slate-600 dark:text-slate-300">
                                             <div class="flex items-center gap-3">
@@ -333,7 +203,7 @@
                                                     data-players='@json(array_column($play->results ?? [], 'user_id'))'
                                                     data-date="{{ $play->date_played->toDateString() }}"
                                                     data-location="{{ $play->location }}"
-                                                    class="text-xs text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
+                                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600 hover:text-emerald-400 dark:text-emerald-400 dark:hover:text-emerald-200"
                                                 >
                                                     Endre
                                                 </a>
@@ -352,7 +222,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+                                        <td colspan="8" class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
                                             Ingen gameplays registrert ennå.
                                         </td>
                                     </tr>
@@ -362,65 +232,146 @@
                     </div>
                 </div>
 
-                <div id="panel-users" class="lg:col-span-2 rounded-2xl border border-slate-200/70 bg-white/95 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
+                <div id="panel-games" class="lg:col-span-3 rounded-2xl border border-gray-200/70 bg-white/90 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Spill</h3>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        
+                                <button
+                                    id="show-game-form"
+                                    type="button"
+                                    class="inline-flex items-center justify-center self-end rounded-full bg-emerald-500 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-emerald-400 focus:outline-none focus-visible:ring focus-visible:ring-emerald-500/40 sm:self-auto"
+                                >
+                                    Registrer nytt spill
+                                </button>
+                            <div
+                                id="game-form-panel"
+                                class="{{ $errors->hasAny(['game_name', 'game_complexity']) ? '' : 'hidden' }} mt-6 rounded-2xl border border-dashed border-slate-200/60 bg-white/60 p-6 shadow-inner shadow-black/5 dark:border-slate-700/60 dark:bg-slate-900/40"
+                                data-default-name="{{ old('game_name', '') }}"
+                                data-default-complexity="{{ old('game_complexity', '') }}"
+                                data-show-on-errors="{{ $errors->hasAny(['game_name', 'game_complexity']) ? 'true' : 'false' }}"
+                            >
+                                <form id="game-form" method="POST" action="{{ route('dashboard.games.store') }}" class="space-y-6">
+                                    @csrf
+                                    <input type="hidden" name="_method" id="game-form-method" value="POST">
+                                    <div class="grid gap-4 md:grid-cols-2">
+                                        <div>
+                                            <label class="text-xs uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400" for="game-form-name">Navn</label>
+                                            <input
+                                                id="game-form-name"
+                                                type="text"
+                                                name="game_name"
+                                                value="{{ old('game_name') }}"
+                                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring focus:ring-slate-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                                                required
+                                            />
+                                            @error('game_name')
+                                                <p class="mt-1 text-xs text-rose-500">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div>
+                                            <label class="text-xs uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400" for="game-form-complexity">Kompleksitet</label>
+                                            <select
+                                                id="game-form-complexity"
+                                                name="game_complexity"
+                                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500 focus:ring focus:ring-slate-500/30 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                                                required
+                                            >
+                                                @foreach ($complexityLevels as $levelValue => $levelLabel)
+                                                    <option value="{{ $levelValue }}" {{ old('game_complexity') == $levelValue ? 'selected' : '' }}>
+                                                        {{ ucfirst($levelLabel) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('game_complexity')
+                                                <p class="mt-1 text-xs text-rose-500">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between">
+                                        <button
+                                            type="submit"
+                                            class="inline-flex items-center justify-center rounded-full bg-rose-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-rose-500 focus:outline-none focus-visible:ring focus-visible:ring-rose-500/40"
+                                        >
+                                            Lagre spill
+                                        </button>
+                                        <button
+                                            type="button"
+                                            id="game-form-cancel"
+                                            class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 transition hover:text-slate-700 dark:hover:text-slate-200"
+                                        >
+                                            Avbryt
+                                        </button>
+                                    </div>
+                                </form>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/60 bg-white/80 p-5 dark:border-slate-800 dark:bg-slate-900/60">
+                            <div class="overflow-hidden rounded-xl border border-slate-200/60 dark:border-slate-800">
+                                <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                                    <thead class="bg-slate-50 dark:bg-slate-900">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Navn</th>
+                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Kompleksitet</th>
+                                            <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Handling</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                        @forelse ($games as $game)
+                                            <tr class="bg-white dark:bg-slate-900">
+                                                <td class="px-4 py-3 text-slate-800 dark:text-slate-100">
+                                                    <div class="space-y-1">
+                                                        <div>{{ $game->name }}</div>
+                                                        <div class="text-xs text-slate-500 dark:text-slate-400">{{ $game->created_at->format('Y-m-d') }}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ $game->complexity }}</td>
+                                                <td class="px-4 py-3 text-slate-600 dark:text-slate-300">
+                                                    <div class="flex items-center gap-3">
+                                                        <a
+                                                            href="#game-form-panel"
+                                                            data-action="edit-game"
+                                                            data-id="{{ $game->id }}"
+                                                            data-name="{{ $game->name }}"
+                                                            data-complexity="{{ $game->complexity }}"
+                                                            class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600 hover:text-emerald-400 dark:text-emerald-400 dark:hover:text-emerald-200"
+                                                        >
+                                                            Endre
+                                                        </a>
+                                                        <form method="POST" action="{{ route('dashboard.games.destroy', $game) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button
+                                                                type="submit"
+                                                                class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-600 hover:text-rose-400 dark:text-rose-400 dark:hover:text-rose-200"
+                                                            >
+                                                                Slett
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3" class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+                                                    Ingen spill registrert enda.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div id="panel-users" class="lg:col-span-3 rounded-2xl border border-slate-200/70 bg-white/95 p-6 shadow-sm shadow-slate-800/10 dark:border-slate-700/60 dark:bg-slate-900">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Alle brukere</h3>
                     </div>
-                    <div class="mt-4 overflow-hidden rounded-xl border border-slate-200/60 dark:border-slate-800">
-                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
-                            <thead class="bg-slate-50 dark:bg-slate-900">
-                                <tr>
-                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Navn</th>
-                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">E-post</th>
-                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Rolle</th>
-                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Lagt til</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                @forelse ($users as $member)
-                                    <tr class="bg-white dark:bg-slate-900">
-                                        <td class="px-4 py-3 text-slate-800 dark:text-slate-100">
-                                            <div class="flex items-baseline justify-between gap-3">
-                                                <span>{{ $member->name }}</span>
-                                                <a
-                                                    href="#user-form-panel"
-                                                    data-action="edit-user"
-                                                    data-id="{{ $member->id }}"
-                                                    data-name="{{ $member->name }}"
-                                                    data-email="{{ $member->email }}"
-                                                    data-admin="{{ $member->is_admin ? '1' : '0' }}"
-                                                    data-game-admin="{{ $member->is_game_admin ? '1' : '0' }}"
-                                                    class="text-xs text-slate-500 underline-offset-2 hover:underline dark:text-slate-400"
-                                                >
-                                                    Endre
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ $member->email }}</td>
-                                        <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
-                                            @if ($member->is_admin)
-                                                <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600 dark:bg-emerald-600/20 dark:text-emerald-100">Admin</span>
-                                            @elseif ($member->is_game_admin)
-                                                <span class="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-600 dark:bg-sky-600/20 dark:text-sky-100">Game admin</span>
-                                            @else
-                                                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600 dark:bg-slate-700/40 dark:text-slate-200">Medlem</span>
-                                            @endif
-                                        </td>
-                                        <td class="px-4 py-3 text-slate-500 dark:text-slate-400">
-                                            {{ $member->created_at->format('Y-m-d') }}
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="4" class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
-                                            Ingen registrerte brukere funnet.
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-
                     <div class="mt-6 space-y-4">
                         <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                             <div>
@@ -512,7 +463,7 @@
                                     <div class="flex gap-3">
                                         <button
                                             type="submit"
-                                            class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-slate-800 focus:outline-none focus-visible:ring focus-visible:ring-slate-500/40"
+                                            class="inline-flex items-center justify-center rounded-full bg-rose-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-rose-500 focus:outline-none focus-visible:ring focus-visible:ring-rose-500/40"
                                         >
                                             Lagre
                                         </button>
@@ -528,6 +479,62 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="mt-4 overflow-hidden rounded-xl border border-slate-200/60 dark:border-slate-800">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <thead class="bg-slate-50 dark:bg-slate-900">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Navn</th>
+                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">E-post</th>
+                                    <th class="px-4 py-3 text-left font-medium text-slate-500 dark:text-slate-300">Rolle</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                @forelse ($users as $member)
+                                    <tr class="bg-white dark:bg-slate-900">
+                                        <td class="px-4 py-3 text-slate-800 dark:text-slate-100">
+                                            <div class="flex items-baseline justify-between gap-3">
+                                                <span>{{ $member->name }}</span>
+                                                <a
+                                                    href="#user-form-panel"
+                                                    data-action="edit-user"
+                                                    data-id="{{ $member->id }}"
+                                                    data-name="{{ $member->name }}"
+                                                    data-email="{{ $member->email }}"
+                                                    data-admin="{{ $member->is_admin ? '1' : '0' }}"
+                                                    data-game-admin="{{ $member->is_game_admin ? '1' : '0' }}"
+                                                    class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600 hover:text-emerald-400 dark:text-emerald-400 dark:hover:text-emerald-200"
+                                                >
+                                                    Endre
+                                                </a>
+                                            </div>
+                                            <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                                                {{ $member->created_at->format('Y-m-d') }}
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 text-slate-600 dark:text-slate-300">{{ $member->email }}</td>
+                                        <td class="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
+                                            @if ($member->is_admin)
+                                                <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600 dark:bg-emerald-600/20 dark:text-emerald-100">Admin</span>
+                                            @elseif ($member->is_game_admin)
+                                                <span class="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-600 dark:bg-sky-600/20 dark:text-sky-100">Game admin</span>
+                                            @else
+                                                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600 dark:bg-slate-700/40 dark:text-slate-200">Medlem</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+                                            Ingen registrerte brukere funnet.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
                 </div>
             </div>
         </div>
