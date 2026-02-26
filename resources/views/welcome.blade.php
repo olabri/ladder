@@ -37,6 +37,25 @@
                         </div>
                     </div>
                 </div>
+                <section class="rounded-2xl border border-slate-800/70 bg-slate-950/30 p-6 shadow-inner shadow-black/30">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Kommende kvelder</p>
+                        <h2 class="text-2xl font-semibold text-white">Kalender</h2>
+                        <p class="text-sm text-slate-300">
+                            Her ser du kommende arrangementer fra Google Kalenderen vår.
+                        </p>
+                    </div>
+                    <div class="mt-6 rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
+                        <div
+                            id="events-calendar"
+                            data-ics-url="{{ route('calendar.ics') }}"
+                            class="fc-theme-standard text-sm text-slate-200"
+                        ></div>
+                        <p class="mt-4 text-xs text-slate-400">
+                            Hvis kalenderen ikke vises, oppdater siden eller prøv igjen senere.
+                        </p>
+                    </div>
+                </section>
                 <div class="flex items-center justify-between gap-4">
                     <a
                         href="{{ url('/games') }}"

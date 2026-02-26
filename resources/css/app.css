@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .fc-theme-standard {
+        --fc-neutral-bg-color: rgba(15, 23, 42, 0.45);
+    }
+
+    .fc .fc-cell-shaded {
+        background-color: var(--fc-neutral-bg-color);
+    }
+}

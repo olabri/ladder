@@ -7,11 +7,25 @@ use App\Http\Controllers\UserController;
 use App\Models\Game;
 use App\Models\GamePlay;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 
 Route::view('/', 'welcome')
     ->name('home');
+
+Route::get('calendar.ics', function () {
+    $response = Http::retry(2, 500)->get('https://calendar.google.com/calendar/ical/follesebrettspillklubb%40gmail.com/public/basic.ics');
+
+    if (! $response->successful()) {
+        abort(502, 'Kunne ikke hente kalenderen akkurat nå.');
+    }
+
+    return response($response->body(), 200, [
+        'Content-Type' => 'text/calendar; charset=utf-8',
+        'Cache-Control' => 'public, max-age=300',
+    ]);
+})->name('calendar.ics');
 
 Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
